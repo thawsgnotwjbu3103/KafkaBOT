@@ -1,42 +1,23 @@
-## build runner
-FROM node:lts-alpine as build-runner
-
-# Set temp directory
-WORKDIR /tmp/app
-
-# Move package.json
-COPY package.json .
-
-# Update npm
-RUN npm install -g npm@latest
-
-# Install dependencies
-RUN npm install
-
-# Move source files
-COPY src ./src
-COPY tsconfig.json   .
-
-# Build project
-RUN npm run build
-
-## production runner
+## Using node image
 FROM node:lts-alpine as prod-runner
 
-# Set work directory
-WORKDIR /app
+## Set WORKDIR
+WORKDIR /usr/app
 
-# Copy package.json from build-runner
-COPY --from=build-runner /tmp/app/package.json /app/package.json
+## Copy all contents to WORKDIR
+COPY . .
 
-# Update npm
-RUN npm install -g npm@latest
+## Perform npm cache clean
+RUN npm cache clean -force
 
-# Install dependencies
-RUN npm install --omit=dev
+## Update npm to latest
+RUN npm i -g npm@latest
 
-# Move build files
-COPY --from=build-runner /tmp/app/build /app/build
+## Install all dependencies
+RUN npm i
+
+## Build project
+RUN npm run build
 
 # Start bot
 CMD [ "npm", "run", "start:prod" ]
