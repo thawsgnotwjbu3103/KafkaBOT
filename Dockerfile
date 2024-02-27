@@ -20,4 +20,4 @@ RUN npm i
 RUN npm run build
 
 # Start bot
-CMD [ "npm", "run", "start:dev" ]
+CMD [ "npm", "run", "start:prod" ]
