@@ -1,0 +1,38 @@
+{
+  "name": "kafkabot",
+  "version": "1.0.0",
+  "description": "Just a bot i made for fun",
+  "main": "build/main.js",
+  "type": "commonjs",
+  "scripts": {
+    "start:dev": "nodemon src/main.ts",
+    "start:prod": "node build/main.js",
+    "build": "tsc && tsc-alias"
+  },
+  "keywords": [
+    "kafkabot",
+    "discord bot",
+    "typescript"
+  ],
+  "author": "thawsg_not_wjbu",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "bing-chat": "^0.2.3",
+    "cheerio": "^1.0.0-rc.12",
+    "cron": "^3.1.6",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.1",
+    "glob": "^10.3.10",
+    "mongoose": "^8.1.1",
+    "sagiri": "^3.4.0"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.2",
+    "@types/node": "^20.11.7",
+    "nodemon": "^3.0.3",
+    "tsc-alias": "^1.8.8",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}

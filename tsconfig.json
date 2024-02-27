@@ -1,0 +1,22 @@
+{
+    "extends": "@tsconfig/node20/tsconfig.json",
+    "compilerOptions": {
+        "rootDir": ".",
+        "isolatedModules": true,
+        "strict": true,
+        "allowJs": true,
+        "outDir": "build",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": false,
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "node16",
+        "skipLibCheck": true,
+        "noEmit": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        }
+    },
+    "include": ["src/**/*.ts", "tests/**/*.ts"],
+    "exclude": ["node_modules", ".vscode"]
+}
