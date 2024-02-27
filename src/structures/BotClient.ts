@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
 
-dotenv.config();
-import {CommandType, CustomCommandType} from '@/interfaces/command';
-import {Client, Collection, GatewayIntentBits, REST, Routes} from 'discord.js';
+dotenv.config({ path: '.env' });
+import { CommandType, CustomCommandType } from '@/interfaces/command';
+import { Client, Collection, GatewayIntentBits, REST, Routes } from 'discord.js';
 import mongoose from 'mongoose';
-import {glob} from 'glob';
+import { glob } from 'glob';
 import path from 'path';
 import url from 'url';
 
@@ -51,11 +51,13 @@ class BotClient extends Client {
             commandFiles.map(async (filePath) => {
                 const importedFile = await this.importFile(url.pathToFileURL(filePath).href);
 
-                let command = this.NODE_ENV === "development" ? importedFile : importedFile.default;
+                let command = this.NODE_ENV === 'development' ? importedFile : importedFile.default;
 
-                if('data' in command && 'execute' in command) {
+                if ('data' in command && 'execute' in command) {
                     this.commands.set(command.data.name, command);
-                    commands.push(command.default ? command.default.data.toJSON() : command.data.toJSON());
+                    commands.push(
+                        command.default ? command.default.data.toJSON() : command.data.toJSON()
+                    );
                 } else if ('name' in command && 'execute' in command) {
                     this.customCommands.set(command.name, command);
                 } else {
@@ -141,7 +143,7 @@ class BotClient extends Client {
 
         console.log(`Started refreshing ${this.commands.size} (/) commands.`);
         console.log(`Started refreshing ${this.customCommands.size} custom (/) commands.`);
-        const rest = new REST({version: '10'}).setToken(this.DISCORD_CLIENT_TOKEN!!);
+        const rest = new REST({ version: '10' }).setToken(this.DISCORD_CLIENT_TOKEN!!);
         await rest.put(Routes.applicationCommands(this.DISCORD_CLIENT_ID!!), {
             body: commands,
         });
